@@ -11,7 +11,6 @@ const Input = () => {
     const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=ru&appid=20df0933396dc030245a38f6730e7ae8`;
 
     useEffect(() => {
-        console.log(city, "city");
         if (city) {
             fetch(geocode)
                 .then((response) => {
