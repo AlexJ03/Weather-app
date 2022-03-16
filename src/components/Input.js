@@ -16,7 +16,7 @@ const Input = () => {
                 .then((response) => {
                     return response.json();
                 })
-                .then((data) => {   
+                .then((data) => {
                     setLat(data[0].lat);
                     setLon(data[0].lon);
                 });
