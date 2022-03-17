@@ -1,4 +1,12 @@
 import { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
+import InputBase from "@mui/material/InputBase";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import Paper from "@mui/material/Paper";
+import CardComponent from "./CardComponent";
+import Tooltip from "@mui/material/Tooltip";
 
 const Input = () => {
     const [city, setCity] = useState("");
@@ -23,33 +31,69 @@ const Input = () => {
         }
     }, [city]);
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault();
         fetch(URL)
             .then((response) => {
                 return response.json();
             })
             .then((data) => {
+                console.log(data, "data");
                 setData(data);
             });
         setCity("");
     };
 
     return (
-        <>
-            <input
-                type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="Поиск по городу"
-            />
-            <p>Погода: {data ? data.weather[0].description : null}</p>
-            <p>Температура: {data ? Math.round(data.main.temp) : null}</p>
-            <p>
-                Ощущается как: {data ? Math.round(data.main.feels_like) : null}
-            </p>
-            <p>Ветер: {data ? Math.round(data.wind.speed) : null} м/с</p>
-            <button onClick={() => handleClick()}>Узнать погоду</button>
-        </>
+        <Box display="flex" flexDirection="column">
+            <Box display="flex" justifyContent="center">
+                <Paper
+                    component="form"
+                    sx={{
+                        p: "2px 4px",
+                        mb: 2,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "90vw",
+                        "&:hover": {
+                            boxShadow: "1px 3px 7px 1px #ccc",
+                        },
+                    }}
+                >
+                    <IconButton sx={{ p: "10px" }} aria-label="menu">
+                        <WbSunnyIcon />
+                    </IconButton>
+                    <InputBase
+                        sx={{
+                            ml: 1,
+                            flex: 1,
+                        }}
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        placeholder="Поиск погоды по городу"
+                    />
+                    <IconButton
+                        type="submit"
+                        sx={{ p: "10px" }}
+                        aria-label="search"
+                        onClick={(e) => handleClick(e)}
+                    >
+                        <Tooltip title="Искать">
+                            <SearchIcon />
+                        </Tooltip>
+                    </IconButton>
+                </Paper>
+            </Box>
+            {data ? (
+                <CardComponent
+                    cityName={data.name}
+                    description={data.weather[0].description}
+                    feelLike={Math.round(data.main.feels_like)}
+                    temp={Math.round(data.main.temp)}
+                />
+            ) : null}
+        </Box>
     );
 };
 
