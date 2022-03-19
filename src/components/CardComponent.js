@@ -3,7 +3,15 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-const CardComponent = ({ cityName, description, feelLike, temp }) => {
+const CardComponent = ({
+    cityName,
+    description,
+    feelLike,
+    temp,
+    wind,
+    maxTemp,
+    minTemp,
+}) => {
     const options = {
         month: "long",
         day: "numeric",
@@ -30,9 +38,16 @@ const CardComponent = ({ cityName, description, feelLike, temp }) => {
                         {" "}
                         <strong> Сегодня {description} </strong>
                     </Typography>
-                    <Typography fontSize={30}>Температура: {temp}</Typography>
+                    <Typography fontSize={30}>Температура: {temp} °С</Typography>
                     <Typography fontSize={30}>
-                        Ощущается как {feelLike}
+                        Ощущается как {feelLike} °С
+                    </Typography>
+                    <Typography fontSize={30}>Скорость ветра {wind} м/с</Typography>
+                    <Typography fontSize={30}>
+                        Максимальная температура: {maxTemp} °С
+                    </Typography>
+                    <Typography fontSize={30}>
+                        Минимальная температура: {minTemp} °С
                     </Typography>
                 </CardContent>
             </Card>

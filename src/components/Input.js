@@ -15,6 +15,7 @@ const Input = () => {
     const [lon, setLon] = useState("");
     const [data, setData] = useState();
     const [loader, setLoader] = useState(false);
+    const [inputErr, setInputErr] = useState(false);
 
     const geocode = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=20df0933396dc030245a38f6730e7ae8`;
 
@@ -35,19 +36,24 @@ const Input = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        setLoader(true);
-        fetch(URL)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data, "data");
-                setData(data);
-            });
-        setCity("");
-        setTimeout(() => {
-            setLoader(false);
-        }, 1000);
+        if (city) {
+            setInputErr(false);
+            setLoader(true);
+            fetch(URL)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data, "data");
+                    setData(data);
+                });
+            setCity("");
+            setTimeout(() => {
+                setLoader(false);
+            }, 1000);
+        } else {
+            setInputErr(true);
+        }
     };
 
     return (
@@ -78,7 +84,11 @@ const Input = () => {
                         }}
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        placeholder="Поиск погоды по городу"
+                        placeholder={
+                            inputErr
+                                ? "Вы не указали город!"
+                                : "Поиск погоды по городу"
+                        }
                     />
                     <IconButton
                         type="submit"
@@ -98,12 +108,15 @@ const Input = () => {
                     </IconButton>
                 </Paper>
             </Box>
-            {data && !loader ? (
+            {data && !loader && !inputErr ? (
                 <CardComponent
                     cityName={data.name}
                     description={data.weather[0].description}
                     feelLike={Math.round(data.main.feels_like)}
                     temp={Math.round(data.main.temp)}
+                    wind={Math.round(data.wind.speed)}
+                    maxTemp={Math.round(data.main.temp_max)}
+                    minTemp={Math.round(data.main.temp_min)}
                 />
             ) : null}
         </Box>
