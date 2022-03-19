@@ -7,12 +7,14 @@ import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import Paper from "@mui/material/Paper";
 import CardComponent from "./CardComponent";
 import Tooltip from "@mui/material/Tooltip";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Input = () => {
     const [city, setCity] = useState("");
     const [lat, setLat] = useState("");
     const [lon, setLon] = useState("");
     const [data, setData] = useState();
+    const [loader, setLoader] = useState(false);
 
     const geocode = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=20df0933396dc030245a38f6730e7ae8`;
 
@@ -33,6 +35,7 @@ const Input = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
+        setLoader(true);
         fetch(URL)
             .then((response) => {
                 return response.json();
@@ -42,6 +45,9 @@ const Input = () => {
                 setData(data);
             });
         setCity("");
+        setTimeout(() => {
+            setLoader(false);
+        }, 1000);
     };
 
     return (
@@ -56,6 +62,7 @@ const Input = () => {
                         alignItems: "center",
                         justifyContent: "center",
                         width: "90vw",
+                        maxHeight: "48px",
                         "&:hover": {
                             boxShadow: "1px 3px 7px 1px #ccc",
                         },
@@ -80,12 +87,18 @@ const Input = () => {
                         onClick={(e) => handleClick(e)}
                     >
                         <Tooltip title="Искать">
-                            <SearchIcon />
+                            {loader ? (
+                                <CircularProgress
+                                    sx={{ maxHeight: 24, maxWidth: 24 }}
+                                />
+                            ) : (
+                                <SearchIcon />
+                            )}
                         </Tooltip>
                     </IconButton>
                 </Paper>
             </Box>
-            {data ? (
+            {data && !loader ? (
                 <CardComponent
                     cityName={data.name}
                     description={data.weather[0].description}
