@@ -63,12 +63,13 @@ const Input = () => {
                     component="form"
                     sx={{
                         p: "2px 4px",
-                        mb: 2,
+                        mb: 3,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         width: "90vw",
                         maxHeight: "48px",
+                        borderRadius: "15px",
                         "&:hover": {
                             boxShadow: "1px 3px 7px 1px #ccc",
                         },
@@ -82,12 +83,13 @@ const Input = () => {
                             ml: 1,
                             flex: 1,
                         }}
+                        autoFocus
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
                         placeholder={
                             inputErr
                                 ? "Вы не указали город!"
-                                : "Поиск погоды по городу"
+                                : "Узнать погоду"
                         }
                     />
                     <IconButton

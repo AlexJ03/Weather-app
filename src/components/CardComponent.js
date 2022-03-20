@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 const CardComponent = ({
     cityName,
@@ -18,37 +19,51 @@ const CardComponent = ({
         weekday: "long",
     };
     let dateNow = new Date().toLocaleString("ru", options);
+    let navigate = useNavigate();
+
+    const handleClickCard = () => {
+        navigate(`/weather/city`);
+    };
 
     return (
         <Box display="flex" justifyContent="center">
-            <Card sx={{ width: "90vw" }}>
+            <Card
+                sx={{
+                    width: "90vw",
+                    borderRadius: "20px",
+                    opacity: ".8",
+                    transition: ".3s",
+                    "&:hover": {
+                        opacity: 1,
+                    },
+                }}
+                onClick={() => handleClickCard()}
+            >
                 <CardContent>
-                    <Typography fontSize={25}>Погода в {cityName}</Typography>
-                    <Typography
-                        sx={{
-                            mb: 1.5,
-                            textTransform: "capitalize",
-                            fontSize: 20,
-                        }}
-                        color="text.secondary"
-                    >
-                        {dateNow}
-                    </Typography>
-                    <Typography fontSize={30}>
-                        {" "}
-                        <strong> Сегодня {description} </strong>
-                    </Typography>
-                    <Typography fontSize={30}>Температура: {temp} °С</Typography>
-                    <Typography fontSize={30}>
-                        Ощущается как {feelLike} °С
-                    </Typography>
-                    <Typography fontSize={30}>Скорость ветра {wind} м/с</Typography>
-                    <Typography fontSize={30}>
-                        Максимальная температура: {maxTemp} °С
-                    </Typography>
-                    <Typography fontSize={30}>
-                        Минимальная температура: {minTemp} °С
-                    </Typography>
+                    <Box display="flex" justifyContent="space-between">
+                        <Box>
+                            <Typography fontSize={25}>{cityName}</Typography>
+                            <Typography
+                                sx={{
+                                    mb: "20%",
+                                    textTransform: "capitalize",
+                                    fontSize: 20,
+                                }}
+                                color="text.secondary"
+                            >
+                                {dateNow}
+                            </Typography>
+                            <Typography
+                                fontSize={27}
+                                textTransform="capitalize"
+                            >
+                                {description}
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <Typography fontSize={30}>{temp} °С</Typography>
+                        </Box>
+                    </Box>
                 </CardContent>
             </Card>
         </Box>

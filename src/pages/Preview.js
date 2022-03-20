@@ -47,7 +47,7 @@ const Preview = () => {
                                 />
                             </Typography>
                         </Fade>
-                        <Link to="/settings" style={styleLink}>
+                        <Link to="/weather" style={styleLink}>
                             <Fade bottom>
                                 <Button
                                     variant="outlined"
