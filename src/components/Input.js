@@ -8,6 +8,8 @@ import Paper from "@mui/material/Paper";
 import CardComponent from "./CardComponent";
 import Tooltip from "@mui/material/Tooltip";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useSelector, useDispatch } from "react-redux";
+import { setCityRed } from "../redux/citySlice";
 
 const Input = () => {
     const [city, setCity] = useState("");
@@ -16,6 +18,10 @@ const Input = () => {
     const [data, setData] = useState();
     const [loader, setLoader] = useState(false);
     const [inputErr, setInputErr] = useState(false);
+
+    const citySlice = useSelector((state) => state.city.city);
+    const dispatch = useDispatch();
+    console.log(citySlice, "use");
 
     const geocode = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=20df0933396dc030245a38f6730e7ae8`;
 
@@ -40,12 +46,13 @@ const Input = () => {
             setInputErr(false);
             setLoader(true);
             fetch(URL)
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    console.log(data, "data");
-                    setData(data);
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data, "data");
+                setData(data);
+                dispatch(setCityRed(data));
                 });
             setCity("");
             setTimeout(() => {
@@ -87,9 +94,7 @@ const Input = () => {
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
                         placeholder={
-                            inputErr
-                                ? "Вы не указали город!"
-                                : "Узнать погоду"
+                            inputErr ? "Вы не указали город!" : "Узнать погоду"
                         }
                     />
                     <IconButton

@@ -22,7 +22,9 @@ const CardComponent = ({
     let navigate = useNavigate();
 
     const handleClickCard = () => {
-        navigate(`/weather/city`);
+        setTimeout(() => {
+            navigate(`/weather/city`);
+        }, 1000);
     };
 
     return (
@@ -31,7 +33,7 @@ const CardComponent = ({
                 sx={{
                     width: "90vw",
                     borderRadius: "20px",
-                    opacity: ".8",
+                    opacity: ".7",
                     transition: ".3s",
                     "&:hover": {
                         opacity: 1,
