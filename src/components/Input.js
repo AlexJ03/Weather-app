@@ -9,7 +9,7 @@ import CardComponent from "./CardComponent";
 import Tooltip from "@mui/material/Tooltip";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector, useDispatch } from "react-redux";
-import { setCityRed, setCityName } from "../redux/citySlice";
+import { setCityRed, setCityName, getWeatherIcon } from "../redux/citySlice";
 
 const Input = () => {
     const [city, setCity] = useState("");
@@ -21,6 +21,9 @@ const Input = () => {
 
     const citySlice = useSelector((state) => state.city.city);
     const cityNameRed = useSelector((state) => state.city.cityName);
+    const weatherIcon = useSelector((state) => state.city.weatherIcon);
+
+    console.log(weatherIcon, "weatherIcon");
 
     const dispatch = useDispatch();
 
@@ -54,6 +57,7 @@ const Input = () => {
                     setData(data);
                     dispatch(setCityRed(data));
                     dispatch(setCityName(city));
+                    dispatch(getWeatherIcon(data.current.weather[0].icon));
                 });
             setCity("");
             setTimeout(() => {

@@ -54,19 +54,4 @@ const CityPage = () => {
     );
 };
 
-{
-    /* <Box display="flex">
-                            <Stack direction="row" spacing={5}>
-                            <Typography fontSize={19}>
-                            максимальная{" "}
-                            {Math.round(citySlice.main.temp_max)}
-                            </Typography>
-                            <Typography fontSize={19}>
-                            минимальная{" "}
-                            {Math.round(citySlice.main.temp_min)}
-                            </Typography>
-                            </Stack>
-                        </Box> */
-}
-
 export default CityPage;
