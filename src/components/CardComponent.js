@@ -27,6 +27,8 @@ const CardComponent = ({
         }, 300);
     };
 
+    const largeScreen = window.matchMedia("(min-width: 768px)").matches;
+
     return (
         <Box display="flex" justifyContent="center">
             <Card
@@ -43,7 +45,7 @@ const CardComponent = ({
             >
                 <CardContent>
                     <Box display="flex" justifyContent="space-between">
-                        <Box>
+                        <Box width={largeScreen ? null : "225px"}>
                             <Typography textTransform="capitalize" fontSize={25}>{cityName}</Typography>
                             <Typography
                                 sx={{

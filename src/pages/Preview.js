@@ -11,7 +11,7 @@ import CountUp from "react-countup";
 const Preview = () => {
     const root = {
         height: "100vh",
-        backgroundColor: "#eeeeee",
+        backgroundColor: "#fff",
         color: "#575757",
     };
 
@@ -27,16 +27,26 @@ const Preview = () => {
         textDecoration: "none",
     };
 
+    const largeScreen = window.matchMedia("(min-width: 768px)").matches;
+
     return (
         <div style={root}>
             <Container maxWidth="md">
                 <Box sx={styleBox}>
                     <Stack spacing={1}>
                         <Fade bottom cascade>
-                            <Typography variant="h3" textAlign="center">
+                            <Typography
+                                variant={largeScreen ? "h3" : "h5"}
+                                textAlign="center"
+                                marginBottom={2}
+                            >
                                 Добро пожаловать!
                             </Typography>
-                            <Typography variant="h5" textAlign="center">
+                            <Typography
+                                fontSize={largeScreen ? "24px" : "17px"}
+                                marginBottom={2}
+                                textAlign="center"
+                            >
                                 Здесь вы узнаете погоду в более{" "}
                                 <CountUp
                                     start={0}

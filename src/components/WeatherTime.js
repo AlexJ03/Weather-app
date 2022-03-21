@@ -26,9 +26,9 @@ const WeatherTime = () => {
                     <Box>
                         <Stack direction="column" spacing={3}>
                             <Typography fontSize={20}>
-                                {new Date(item.dt * 1000).getHours()}ч
+                                {new Date(item.dt * 1000).getHours()}:00
                             </Typography>
-                            <Typography>{Math.round(item.temp)}°C</Typography>
+                            <Typography fontSize={20}>{Math.round(item.temp)}°C</Typography>
                         </Stack>
                     </Box>
                 ))}

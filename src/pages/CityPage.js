@@ -33,7 +33,7 @@ const CityPage = () => {
                             {citySlice.current.weather[0].description}
                         </Typography>
                         <Typography fontSize={60}>
-                            {"\u00A0"} {Math.round(citySlice.current.temp)}°
+                            {Math.round(citySlice.current.temp)}°
                         </Typography>
                         <Box
                             sx={{
