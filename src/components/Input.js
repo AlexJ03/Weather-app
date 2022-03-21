@@ -9,7 +9,7 @@ import CardComponent from "./CardComponent";
 import Tooltip from "@mui/material/Tooltip";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector, useDispatch } from "react-redux";
-import { setCityRed } from "../redux/citySlice";
+import { setCityRed, setCityName } from "../redux/citySlice";
 
 const Input = () => {
     const [city, setCity] = useState("");
@@ -20,12 +20,13 @@ const Input = () => {
     const [inputErr, setInputErr] = useState(false);
 
     const citySlice = useSelector((state) => state.city.city);
+    const cityNameRed = useSelector((state) => state.city.cityName);
+
     const dispatch = useDispatch();
-    console.log(citySlice, "use");
 
-    const geocode = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=20df0933396dc030245a38f6730e7ae8`;
+    const geocode = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=20df0933396dc030245a38f6730e7ae8`;
 
-    const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=ru&appid=20df0933396dc030245a38f6730e7ae8`;
+    const URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&lang=ru&units=metric&appid=20df0933396dc030245a38f6730e7ae8`;
 
     useEffect(() => {
         if (city) {
@@ -46,13 +47,13 @@ const Input = () => {
             setInputErr(false);
             setLoader(true);
             fetch(URL)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data, "data");
-                setData(data);
-                dispatch(setCityRed(data));
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    setData(data);
+                    dispatch(setCityRed(data));
+                    dispatch(setCityName(city));
                 });
             setCity("");
             setTimeout(() => {
@@ -117,13 +118,9 @@ const Input = () => {
             </Box>
             {data && !loader && !inputErr ? (
                 <CardComponent
-                    cityName={data.name}
-                    description={data.weather[0].description}
-                    feelLike={Math.round(data.main.feels_like)}
-                    temp={Math.round(data.main.temp)}
-                    wind={Math.round(data.wind.speed)}
-                    maxTemp={Math.round(data.main.temp_max)}
-                    minTemp={Math.round(data.main.temp_min)}
+                    cityName={cityNameRed}
+                    description={citySlice.current.weather[0].description}
+                    temp={Math.round(citySlice.current.temp)}
                 />
             ) : null}
         </Box>

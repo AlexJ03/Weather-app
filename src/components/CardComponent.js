@@ -24,7 +24,7 @@ const CardComponent = ({
     const handleClickCard = () => {
         setTimeout(() => {
             navigate(`/weather/city`);
-        }, 1000);
+        }, 300);
     };
 
     return (
@@ -44,19 +44,19 @@ const CardComponent = ({
                 <CardContent>
                     <Box display="flex" justifyContent="space-between">
                         <Box>
-                            <Typography fontSize={25}>{cityName}</Typography>
+                            <Typography textTransform="capitalize" fontSize={25}>{cityName}</Typography>
                             <Typography
                                 sx={{
-                                    mb: "20%",
+                                    mb: "15%",
                                     textTransform: "capitalize",
-                                    fontSize: 20,
+                                    fontSize: 17,
                                 }}
                                 color="text.secondary"
                             >
                                 {dateNow}
                             </Typography>
                             <Typography
-                                fontSize={27}
+                                fontSize={20}
                                 textTransform="capitalize"
                             >
                                 {description}
