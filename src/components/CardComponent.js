@@ -1,9 +1,11 @@
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const CardComponent = ({
     cityName,
@@ -22,10 +24,13 @@ const CardComponent = ({
     let dateNow = new Date().toLocaleString("ru", options);
     let navigate = useNavigate();
 
+    const [loading, setLoading] = useState(false);
+
     const handleClickCard = () => {
+        setLoading(true);
         setTimeout(() => {
             navigate(`/weather/city`);
-        }, 300);
+        }, 1000);
     };
 
     const weatherIcon = useSelector((state) => state.city.weatherIcon);
@@ -73,7 +78,7 @@ const CardComponent = ({
                                     {description}
                                 </Typography>
                                 <img
-                                    style={{height: "80px"}}
+                                    style={{ height: "80px" }}
                                     src={`http://openweathermap.org/img/wn/${weatherIcon}@2x.png`}
                                     alt={description}
                                 />
@@ -85,6 +90,16 @@ const CardComponent = ({
                     </Box>
                 </CardContent>
             </Card>
+            {loading ? (
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: "30%",
+                    }}
+                >
+                    <CircularProgress />
+                </Box>
+            ) : null}
         </Box>
     );
 };
