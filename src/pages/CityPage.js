@@ -3,10 +3,10 @@ import Container from "@mui/material/Container";
 import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import WeatherTime from "../components/WeatherTime";
+import WeatherDay from "../components/WeatherDay";
 
 const CityPage = () => {
     const root = {
-        height: "100vh",
         display: "flex",
         justifyContent: "center",
         pt: "30px",
@@ -16,8 +16,8 @@ const CityPage = () => {
     const citySliceName = useSelector((state) => state.city.cityName);
 
     return (
-        <Box height="100vh" width="100vw" backgroundColor="#ffffff">
-            <Container maxWidth="lg">
+        <Box height="max-content" width="100vw" backgroundColor="#ffffff">
+            <Container maxWidth="lg" maxHeight="max-content">
                 <Box sx={root}>
                     <Box
                         sx={{
@@ -50,6 +50,9 @@ const CityPage = () => {
                     </Box>
                 </Box>
             </Container>
+            <Box>
+                <WeatherDay />
+            </Box>
         </Box>
     );
 };
