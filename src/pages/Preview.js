@@ -1,18 +1,18 @@
-import background from "../assets/preview-img.jpg";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Brightness7SharpIcon from "@mui/icons-material/Brightness7Sharp";
+import Fade from "react-reveal/Fade";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import CountUp from "react-countup";
 
 const Preview = () => {
     const root = {
         height: "100vh",
-        backgroundImage: `url(${background})`,
-        backgroundColor: "#e2f4ff",
-        color: "#fff",
+        backgroundColor: "#fff",
+        color: "#575757",
     };
 
     const styleBox = {
@@ -27,29 +27,51 @@ const Preview = () => {
         textDecoration: "none",
     };
 
+    const largeScreen = window.matchMedia("(min-width: 768px)").matches;
+
     return (
         <div style={root}>
             <Container maxWidth="md">
                 <Box sx={styleBox}>
                     <Stack spacing={1}>
-                        <Typography variant="h4" textAlign="center">
-                            Узнайте погоду в вашем городе!
-                        </Typography>
-                        <Link to="/weather" style={styleLink}>
-                            <Button
-                                variant="contained"
-                                sx={{ width: "100%" }}
-                                color="info"
-                                startIcon={<Brightness7SharpIcon />}
+                        <Fade bottom cascade>
+                            <Typography
+                                variant={largeScreen ? "h3" : "h5"}
+                                textAlign="center"
+                                marginBottom={2}
                             >
-                                <Typography
-                                    variant="h6"
-                                    textAlign="center"
-                                    color="#fff"
+                                Добро пожаловать!
+                            </Typography>
+                            <Typography
+                                fontSize={largeScreen ? "24px" : "17px"}
+                                marginBottom={2}
+                                textAlign="center"
+                            >
+                                Здесь вы узнаете погоду в более{" "}
+                                <CountUp
+                                    start={0}
+                                    end={200000}
+                                    duration={2}
+                                    prefix="чем "
+                                    suffix=" городов"
+                                />
+                            </Typography>
+                        </Fade>
+                        <Link to="/weather" style={styleLink}>
+                            <Fade bottom>
+                                <Button
+                                    variant="outlined"
+                                    color="primary"
+                                    startIcon={<KeyboardArrowRightIcon />}
                                 >
-                                    Начать
-                                </Typography>
-                            </Button>
+                                    <Typography
+                                        textAlign="center"
+                                        color="inherit"
+                                    >
+                                        Начать
+                                    </Typography>
+                                </Button>
+                            </Fade>
                         </Link>
                     </Stack>
                 </Box>

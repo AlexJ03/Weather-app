@@ -1,3 +1,1 @@
-# Weather App
-
-[Link](https://weather-app-e44e5.web.app/).
+# [Weather App](https://weather-app-new-7e90f.firebaseapp.com/)
